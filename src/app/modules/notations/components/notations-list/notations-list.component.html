@@ -1,1 +1,17 @@
-<button (click)="navigateToCreatePage()" >Create new notation</button>
+<button (click)="navigateToCreatePage()">Create new notation</button>
+<h2>Notations list</h2>
+<div>
+  <span *ngIf="!notations">Is empty</span>
+  <div *ngFor="let notation of notations">
+    <hr>
+    <h3>
+      {{notation.title}}
+    </h3>
+    <p>
+      {{notation.descriptions}}
+    </p>
+
+  </div>
+
+</div>
+

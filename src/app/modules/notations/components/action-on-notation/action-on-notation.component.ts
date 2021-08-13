@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {INotation} from "../../models/notation";
+import {GetNotationsService} from "../../services/get-notations.service";
 
 @Component({
   selector: 'app-action-on-notation',
@@ -9,37 +10,35 @@ import {INotation} from "../../models/notation";
 })
 export class ActionOnNotationComponent implements OnInit {
 
-  notationsListFromStorage: INotation[]
+  newNotation: INotation
 
+  // Form`s controls
   controls = {
     title: new FormControl('', [Validators.required]),
     descriptions: new FormControl('', [Validators.required])
   }
 
+  // Form
   form: FormGroup = new FormGroup(this.controls)
 
-  constructor() {
+  constructor(
+    private getNotationsService: GetNotationsService
+  ) {
   }
 
   ngOnInit(): void {
 
   }
 
-
   saveNewNotation() {
     // Save in newNotation
-    const newNotation: INotation = {
-      title: this.form.controls.title.value,
-      descriptions: this.form.controls.descriptions.value
-    }
-
-    // localStorage.clear()
-
-
+    this.newNotation = this.form.value
 
     // Clear old information
     this.controls.title.setValue('')
     this.controls.descriptions.setValue('')
 
+    // Sent new data to localStore
+    this.getNotationsService.setNotations(this.newNotation)
   }
 }
