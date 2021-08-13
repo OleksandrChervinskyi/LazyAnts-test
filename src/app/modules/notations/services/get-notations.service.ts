@@ -17,15 +17,22 @@ export class GetNotationsService {
     } else return null
   }
 
-  setNotations(newNotation: INotation) {
-    const curentList = this.getAll()
+  addNotation(newNotation: INotation) {
+    const currentList = this.getAll()
 
     //Update old array or create new one
-    if (curentList) {
-      curentList.push(newNotation)
-      localStorage.setItem('notationsList', JSON.stringify(curentList))
+    if (currentList) {
+      currentList.push(newNotation)
+      localStorage.setItem('notationsList', JSON.stringify(currentList))
     } else {
       localStorage.setItem('notationsList', JSON.stringify([newNotation]))
     }
+
+    return this.getAll()
+  }
+
+  updateNotationsList(newArray: INotation[]) {
+    localStorage.setItem('notationsList', JSON.stringify(newArray))
+    return this.getAll()
   }
 }

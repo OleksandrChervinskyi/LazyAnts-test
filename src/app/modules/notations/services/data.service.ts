@@ -1,15 +1,32 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject} from "rxjs";
 import {INotation} from "../models/notation";
+import {GetNotationsService} from "./get-notations.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
 
-  private notationsList: BehaviorSubject<INotation[]> = new BehaviorSubject<INotation[]>([])
+  constructor(private getNotationsService: GetNotationsService) {
 
-  getCurentNotationsList() {
+  }
+
+  private notationsListFromLocalStorage = this.getNotationsService.getAll()
+
+  private initialState() {
+    if (this.notationsListFromLocalStorage) {
+      return this.notationsListFromLocalStorage
+    } else {
+      return []
+    }
+  }
+
+  //BehaviorSubject
+  private notationsList: BehaviorSubject<INotation[]> = new BehaviorSubject<INotation[]>(this.initialState())
+
+
+  getCurrentNotationsList() {
     return this.notationsList
   }
 

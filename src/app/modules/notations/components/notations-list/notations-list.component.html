@@ -1,7 +1,8 @@
 <button (click)="navigateToCreatePage()">Create new notation</button>
+<app-create-new-one></app-create-new-one>
 <h2>Notations list</h2>
 <div>
-  <span *ngIf="!notations">Is empty</span>
+  <span *ngIf="!notations.length">Is empty</span>
   <div *ngFor="let notation of notations">
     <hr>
     <h3>
@@ -10,6 +11,7 @@
     <p>
       {{notation.descriptions}}
     </p>
+    <button (click)="deleteOne(notation)">Delete</button>
 
   </div>
 
