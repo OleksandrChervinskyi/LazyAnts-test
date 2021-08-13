@@ -3,6 +3,7 @@ import {BrowserModule} from '@angular/platform-browser';
 
 import {AppComponent} from './app.component';
 import {RouterModule} from "@angular/router";
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import {RouterModule} from "@angular/router";
         path: '',
         redirectTo: 'notations',
         pathMatch : 'full'
-      }])
+      }]),
+    NoopAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
