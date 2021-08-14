@@ -1,4 +1,3 @@
-<button (click)="navigateToCreatePage()">Create new notation</button>
 <app-create-new-one></app-create-new-one>
 <h2>Notations list</h2>
 
@@ -12,6 +11,8 @@
     <p>
       {{notation.descriptions}}
     </p>
+    <p>{{notation.createdAt}}</p>
+    <button (click)="navigateToUpdatePage(notation)">Change</button>
     <button mat-button (click)="openDialog(notation)">Delete</button>
 
 

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {INotation} from "../../models/notation";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {GetNotationsService} from "../../services/get-notations.service";
+import {NotationsService} from "../../services/notations.service";
 import {DataService} from "../../services/data.service";
 
 @Component({
@@ -16,14 +16,14 @@ export class CreateNewOneComponent implements OnInit {
   // Form`s controls
   controls = {
     title: new FormControl('', [Validators.required]),
-    descriptions: new FormControl('', [Validators.required])
+    descriptions: new FormControl('', [Validators.required]),
   }
 
   // Form
-  form: FormGroup = new FormGroup(this.controls)
+  form: FormGroup = new FormGroup(this.controls);
 
   constructor(
-    private getNotationsService: GetNotationsService,
+    private notationsService: NotationsService,
     private dataService: DataService
   ) {
   }
@@ -34,10 +34,14 @@ export class CreateNewOneComponent implements OnInit {
 
   saveNewNotation() {
     // Save in newNotation
-    this.newNotation = this.form.value
+    this.newNotation = {
+      title: this.form.controls.title.value,
+      descriptions: this.form.controls.descriptions.value,
+      createdAt: new Date().toISOString()
+    }
 
     // Sent new data to localStore across data.services
-    const updatedNotationsList = this.getNotationsService.addNotation(this.newNotation)
+    const updatedNotationsList = this.notationsService.addNotation(this.newNotation)
     this.dataService.setNotationsList(updatedNotationsList)
 
     // Clear old information

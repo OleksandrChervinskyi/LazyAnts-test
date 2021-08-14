@@ -1,18 +1,18 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject} from "rxjs";
 import {INotation} from "../models/notation";
-import {GetNotationsService} from "./get-notations.service";
+import {NotationsService} from "./notations.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
 
-  constructor(private getNotationsService: GetNotationsService) {
+  constructor(private notationsService: NotationsService) {
 
   }
 
-  private notationsListFromLocalStorage = this.getNotationsService.getAll()
+  private notationsListFromLocalStorage = this.notationsService.getAll()
 
   private initialState() {
     if (this.notationsListFromLocalStorage) {
@@ -28,10 +28,6 @@ export class DataService {
 
   getCurrentNotationsList() {
     return this.notationsList
-  }
-
-  getSnapshotNotationsList() {
-    return this.notationsList.getValue()
   }
 
   setNotationsList(newValue: INotation[]): void {

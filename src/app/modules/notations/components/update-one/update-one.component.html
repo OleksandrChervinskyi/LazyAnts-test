@@ -1,0 +1,6 @@
+<form [formGroup]="form" (ngSubmit)="saveChanges()">
+  <p>Change your notations</p>
+  <input type="text" formControlName="title">
+  <input type="text" formControlName="descriptions">
+  <button [disabled]="form.invalid">Save</button>
+</form>

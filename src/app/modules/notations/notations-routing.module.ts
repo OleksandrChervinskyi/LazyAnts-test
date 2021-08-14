@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {NotationsListComponent} from "./components/notations-list/notations-list.component";
-import {ActionOnNotationComponent} from "./components/action-on-notation/action-on-notation.component";
+import {UpdateOneComponent} from "./components/update-one/update-one.component";
 
 const routes: Routes = [
   {
@@ -10,7 +10,7 @@ const routes: Routes = [
   },
   {
     path: 'updateNotation',
-    component: ActionOnNotationComponent
+    component: UpdateOneComponent
   }
 ];
 

@@ -4,7 +4,7 @@ import {INotation} from "../models/notation";
 @Injectable({
   providedIn: 'root'
 })
-export class GetNotationsService {
+export class NotationsService {
 
 
   constructor() {
@@ -34,5 +34,11 @@ export class GetNotationsService {
   updateNotationsList(newArray: INotation[]) {
     localStorage.setItem('notationsList', JSON.stringify(newArray))
     return this.getAll()
+  }
+
+  removeNotation(notation: INotation) {
+    const currentList: INotation[] = this.getAll()
+    const filtredList = currentList.filter(value => value.title !== notation.title);
+    return this.updateNotationsList(filtredList);
   }
 }

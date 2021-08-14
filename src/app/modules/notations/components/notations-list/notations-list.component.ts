@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {INotation} from "../../models/notation";
-import {GetNotationsService} from "../../services/get-notations.service";
+import {NotationsService} from "../../services/notations.service";
 import {DataService} from "../../services/data.service";
 import {MatDialog} from "@angular/material/dialog";
 import {DialogComponent} from "../dialog/dialog.component";
@@ -18,26 +18,15 @@ export class NotationsListComponent {
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private getNotationsService: GetNotationsService,
+    private notationsService: NotationsService,
     private dataService: DataService,
     public dialog: MatDialog
   ) {
-    // Get all notations
-    this.dataService.getCurrentNotationsList().subscribe(value => this.notations = value);
+    // Get all notations and sort they by createdAt
+    this.dataService.getCurrentNotationsList().subscribe(value => this.notations = value.sort(
+      (a, b) => (a.createdAt > b.createdAt) ? -1 : ((b.createdAt > a.createdAt) ? 1 : 0)));
   }
 
-  // Change page to /updateNotation
-  navigateToCreatePage() {
-    this.router.navigate(['updateNotation'], {relativeTo: this.activatedRoute});
-  }
-
-  // Delete from localStore and data.service
-  deleteOne(notation: INotation) {
-    const filtredList = this.notations.filter(value => value.title !== notation.title);
-    const updatedList = this.getNotationsService.updateNotationsList(filtredList);
-    this.dataService.setNotationsList(updatedList);
-
-  }
 
   // Ask confirm before deleting
   openDialog(notation: INotation) {
@@ -45,8 +34,14 @@ export class NotationsListComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.deleteOne(notation);
+        // Delete from localStore and data.service
+        this.dataService.setNotationsList(this.notationsService.removeNotation(notation));
       }
     });
+  }
+
+  // Change page to /updateNotation
+  navigateToUpdatePage(notation: INotation) {
+    this.router.navigate(['updateNotation'], {relativeTo: this.activatedRoute, state: notation});
   }
 }
