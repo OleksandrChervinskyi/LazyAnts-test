@@ -1,6 +1,8 @@
-<form [formGroup]="form" (ngSubmit)="saveChanges()">
-  <p>Change your notations</p>
+<form [formGroup]="form">
+  <h2>Change your notations</h2>
   <input type="text" formControlName="title">
   <input type="text" formControlName="descriptions">
-  <button [disabled]="form.invalid">Save</button>
+  <button (click)="saveChanges()" [disabled]="form.invalid">Save</button>
+  <button (click)="deleteNotation()">Delete notation</button>
+  <button (click)="cancelChanges()">Cancel changes</button>
 </form>

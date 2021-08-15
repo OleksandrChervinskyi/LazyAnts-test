@@ -1,21 +1,12 @@
 <app-create-new-one></app-create-new-one>
-<h2>Notations list</h2>
-
 <div>
-  <span *ngIf="!notations.length">Is empty</span>
-  <div *ngFor="let notation of notations">
-    <hr>
-    <h3>
-      {{notation.title}}
-    </h3>
-    <p>
-      {{notation.descriptions}}
-    </p>
-    <p>{{notation.createdAt}}</p>
-    <button (click)="navigateToUpdatePage(notation)">Change</button>
-    <button mat-button (click)="openDialog(notation)">Delete</button>
-
-
+  <h2>Notations list</h2>
+  <div>
+    <span *ngIf="!notations.length">Is empty</span>
+    <div *ngFor="let notation of notations">
+      <app-notation [notation]=notation></app-notation>
+    </div>
   </div>
 </div>
+
 

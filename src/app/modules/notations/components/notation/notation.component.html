@@ -1,0 +1,13 @@
+<div>
+  <hr>
+  <h3>
+    {{notation.title}}
+  </h3>
+  <p>
+    {{notation.descriptions}}
+  </p>
+  <p>Created at: {{notation.createdAt}}</p>
+  <button (click)="navigateToUpdatePage(notation)">Change</button>
+  <button (click)="deleteOne(notation)">Delete</button>
+</div>
+

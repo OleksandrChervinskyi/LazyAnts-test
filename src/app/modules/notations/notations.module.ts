@@ -2,13 +2,17 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
 import {NotationsRoutingModule} from './notations-routing.module';
-import {NotationsListComponent} from './components/notations-list/notations-list.component';
+import {
+  CreateNewOneComponent,
+  DialogComponent,
+  NotationComponent,
+  NotationsListComponent,
+  UpdateOneComponent
+} from './components';
 import {ReactiveFormsModule} from "@angular/forms";
-import {CreateNewOneComponent} from './components/create-new-one/create-new-one.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatButtonModule} from "@angular/material/button";
-import {DialogComponent} from './components/dialog/dialog.component';
-import { UpdateOneComponent } from './components/update-one/update-one.component';
+import {DataService, GuardsService, NotationsService} from "./services";
 
 
 @NgModule({
@@ -16,7 +20,8 @@ import { UpdateOneComponent } from './components/update-one/update-one.component
     NotationsListComponent,
     CreateNewOneComponent,
     DialogComponent,
-    UpdateOneComponent
+    UpdateOneComponent,
+    NotationComponent
   ],
   imports: [
     CommonModule,
@@ -24,6 +29,11 @@ import { UpdateOneComponent } from './components/update-one/update-one.component
     ReactiveFormsModule,
     MatDialogModule,
     MatButtonModule
+  ],
+  providers: [
+    DataService,
+    GuardsService,
+    NotationsService
   ],
   entryComponents: [DialogComponent]
 })
